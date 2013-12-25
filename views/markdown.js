@@ -1,9 +1,10 @@
 define([
     "showdown",
+    "text!templates/markdown.html",
     "extensions/github",
     "extensions/table",
     "less!stylesheets/markdown.less"
-], function(Showdown) {
+], function(Showdown, templateFile) {
     var _ = codebox.require("underscore");
     var $ = codebox.require("jQuery");
     var hr = codebox.require("hr/hr");
@@ -13,8 +14,8 @@ define([
 
     var FileMarkdownView = FilesBaseView.extend({
         className: "addon-files-markdownpreviewer",
-        templateLoader: "addon.markdownpreviewer.templates",
-        template: "markdown.html",
+        templateLoader: "text",
+        template: templateFile,
         events: {},
 
         // Constructor
