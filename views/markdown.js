@@ -9,10 +9,10 @@ define([
     var $ = codebox.require("jQuery");
     var hr = codebox.require("hr/hr");
     var Dialogs = codebox.require("utils/dialogs");
-    var FilesBaseView = codebox.require("views/files/base");
+    var FilesTabView = codebox.require("views/files/tab");
     var FileSync = codebox.require("utils/filesync");
 
-    var FileMarkdownView = FilesBaseView.extend({
+    var FileMarkdownView = FilesTabView.extend({
         className: "addon-files-markdownpreviewer",
         templateLoader: "text",
         template: templateFile,
@@ -33,6 +33,9 @@ define([
             this.sync.on("content", _.debounce(function(content, oldcontent, patches) {
                 this.updateContent(content);
             }, 800), this);
+            this.sync.on("sync:loading", function(state) {
+                this.tab.setTabState("loading", state);
+            }, this);
 
             // Active sync
             this.sync.setFile(this.model);
